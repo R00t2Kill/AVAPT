@@ -1,0 +1,24 @@
+[
+  {
+    "ip": "203.0.113.10",
+    "port": 554,
+    "banner": "RTSP server (GenericCam) firmware: v1.2.3 model: GC-100",
+    "vendor": "GenericCam",
+    "model": "GC-100",
+    "firmware": "1.2.3",
+    "cves": ["CVE-2021-0001"],
+    "lab": false,
+    "geo": {"lat": 37.7749, "lon": -122.4194}
+  },
+  {
+    "ip": "198.51.100.35",
+    "port": 80,
+    "banner": "HTTP server: DVR-WebUI v4.5.2",
+    "vendor": "DVRCo",
+    "model": "DVR-4",
+    "firmware": "4.5.2",
+    "cves": [],
+    "lab": false,
+    "geo": {"lat": 51.5074, "lon": -0.1278}
+  }
+]

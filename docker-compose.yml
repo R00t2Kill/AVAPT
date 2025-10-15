@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  opensearch:
+    image: opensearchproject/opensearch:2.10.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+
+  app:
+    build: ./backend
+    environment:
+      - OPENSEARCH_URL=http://opensearch:9200
+      - SHODAN_API_KEY=
+      - LAB_MODE=false
+    depends_on:
+      - opensearch
+    ports:
+      - 8000:8000   # FastAPI
+      - 8501:8501   # Streamlit
+
+volumes:
+  opensearch-data:
