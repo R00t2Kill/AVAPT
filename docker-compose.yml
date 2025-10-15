@@ -1,32 +1,51 @@
 version: '3.8'
+
 services:
   opensearch:
-    image: opensearchproject/opensearch:2.10.0
+    image: opensearchproject/opensearch:2.11.0
     environment:
       - discovery.type=single-node
-      - plugins.security.disabled=true
-      - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      - plugins.security.disabled=true
+    ports:
+      - "9200:9200"
     volumes:
       - opensearch-data:/usr/share/opensearch/data
-    ports:
-      - 9200:9200
+    networks:
+      - avapt-network
 
-  app:
+  backend:
     build: ./backend
+    ports:
+      - "8000:8000"
     environment:
       - OPENSEARCH_URL=http://opensearch:9200
-      - SHODAN_API_KEY=
-      - LAB_MODE=false
+      - LAB_MODE=true
+      - SHODAN_API_KEY=${SHODAN_API_KEY:-}
     depends_on:
       - opensearch
+    networks:
+      - avapt-network
+
+  streamlit:
+    build: 
+      context: .
+      dockerfile: streamlit_app/Dockerfile
     ports:
-      - 8000:8000   # FastAPI
-      - 8501:8501   # Streamlit
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - avapt-network
+    volumes:
+      - ./streamlit_app:/app
+      - ./data:/app/data
 
 volumes:
   opensearch-data:
+
+networks:
+  avapt-network:
+    driver: bridge
