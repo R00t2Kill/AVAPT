@@ -1,5 +1,3 @@
-FROM python:3.11-slim
-
 WORKDIR /app
 
 # Install system dependencies
@@ -8,7 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements.txt first
+# Copy requirements
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
@@ -16,7 +14,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-# Copy application files
+# Copy app and scripts
 COPY app /app/app
 COPY scripts /app/scripts
 
