@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Load bundled sample devices into OpenSearch by calling backend API.
-"""
+
 import argparse
 import requests
 import os

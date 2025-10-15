@@ -9,22 +9,17 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-# =============================
-# 🌟 PAGE CONFIG
-# =============================
+# Page Configuration
 st.set_page_config(
     page_title="AVAPT Intelligence Hub",
-    page_icon="🔮",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# =============================
-# 🎨 CUSTOM CSS FOR FIRE DESIGN
-# =============================
+# Custom CSS
 st.markdown("""
 <style>
-    /* Main theme colors */
     :root {
         --primary: #6366f1;
         --secondary: #8b5cf6;
@@ -34,12 +29,10 @@ st.markdown("""
         --danger: #ef4444;
     }
     
-    /* Hide Streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Glassmorphism cards */
     .metric-card {
         background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
         backdrop-filter: blur(10px);
@@ -56,7 +49,6 @@ st.markdown("""
         box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.3);
     }
     
-    /* Animated gradient text */
     .gradient-text {
         background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
         background-size: 200% auto;
@@ -73,7 +65,6 @@ st.markdown("""
         100% {background-position: 0% center;}
     }
     
-    /* Status indicators */
     .status-badge {
         display: inline-block;
         padding: 6px 16px;
@@ -103,17 +94,15 @@ st.markdown("""
         50% {opacity: 0.7;}
     }
     
-    /* Modern sidebar */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%);
     }
     
     [data-testid="stSidebar"] .stRadio > label {
-        color: #e0e7ff !important;
+        color: #e0e7ff;
         font-weight: 600;
     }
     
-    /* Neon glow effects */
     .neon-box {
         border: 2px solid #6366f1;
         border-radius: 15px;
@@ -128,16 +117,14 @@ st.markdown("""
         to {box-shadow: 0 0 30px rgba(99, 102, 241, 0.8);}
     }
     
-    /* Custom metrics */
     div[data-testid="stMetricValue"] {
-        font-size: 2.5rem !important;
-        font-weight: 800 !important;
+        font-size: 2.5rem;
+        font-weight: 800;
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     
-    /* Alert box */
     .alert-box {
         padding: 15px 20px;
         border-radius: 12px;
@@ -163,7 +150,6 @@ st.markdown("""
         color: #fef3c7;
     }
     
-    /* Loading animation */
     .loading-spinner {
         border: 4px solid rgba(99, 102, 241, 0.1);
         border-top: 4px solid #6366f1;
@@ -181,13 +167,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# =============================
-# 🧭 ENHANCED SIDEBAR
-# =============================
+# Sidebar Navigation
 with st.sidebar:
     st.markdown("""
         <div style='text-align: center; padding: 20px 0;'>
-            <div style='font-size: 4rem; margin-bottom: 10px;'>🔮</div>
             <h1 style='color: #e0e7ff; margin: 0; font-size: 1.8rem;'>AVAPT</h1>
             <p style='color: #a5b4fc; margin: 5px 0; font-size: 0.9rem;'>Intelligence Hub</p>
         </div>
@@ -196,32 +179,28 @@ with st.sidebar:
     st.divider()
     
     page = st.radio(
-        "🧭 Navigation",
-        ["🏠 Command Center", "🧠 Neural Health", "📡 Live Feed", "📊 Deep Analytics", "🌐 Global Map", "⚡ System Control"],
+        "Navigation",
+        ["Command Center", "System Health", "Live Feed", "Analytics", "Global Map", "System Control"],
         label_visibility="visible"
     )
 
     st.divider()
     
-    # Enhanced settings
-    st.markdown("### ⚙️ Configuration")
-    refresh_rate = st.slider("🔄 Refresh Interval (s)", 5, 60, 10)
-    theme_mode = st.selectbox("🎨 Theme", ["Cyber Dark", "Neon Blue", "Matrix Green"])
-    show_animations = st.checkbox("✨ Animations", value=True)
+    st.markdown("### Configuration")
+    refresh_rate = st.slider("Refresh Interval (s)", 5, 60, 10)
+    theme_mode = st.selectbox("Theme", ["Cyber Dark", "Neon Blue", "Matrix Green"])
+    show_animations = st.checkbox("Animations", value=True)
     
     st.divider()
     
-    # Connection status
     st.markdown("""
         <div style='background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 10px; border: 1px solid #10b981;'>
-            <div style='color: #10b981; font-weight: 600; margin-bottom: 5px;'>⚡ SYSTEM STATUS</div>
+            <div style='color: #10b981; font-weight: 600; margin-bottom: 5px;'>SYSTEM STATUS</div>
             <div style='color: #6ee7b7; font-size: 0.85rem;'>All systems operational</div>
         </div>
     """, unsafe_allow_html=True)
 
-# =============================
-# 🔌 BACKEND API CONFIG
-# =============================
+# Backend API Configuration
 BACKEND_URL = st.secrets.get("backend_url", "http://127.0.0.1:8000")
 
 def get_health():
@@ -242,34 +221,29 @@ def get_devices(size=50):
         return []
     return []
 
-# =============================
-# 🏠 COMMAND CENTER
-# =============================
-if page == "🏠 Command Center":
-    # Animated header
-    st.markdown('<h1 class="gradient-text">⚡ COMMAND CENTER</h1>', unsafe_allow_html=True)
-    st.caption(f"🕐 Real-time Intelligence | {datetime.now().strftime('%A, %B %d, %Y • %H:%M:%S')}")
+# Command Center
+if page == "Command Center":
+    st.markdown('<h1 class="gradient-text">COMMAND CENTER</h1>', unsafe_allow_html=True)
+    st.caption(f"Real-time Intelligence | {datetime.now().strftime('%A, %B %d, %Y • %H:%M:%S')}")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Generate realistic data
     active_cameras = random.randint(28, 35)
     total_cameras = 35
     alerts = random.randint(2, 8)
     uptime = round(random.uniform(99.2, 99.97), 2)
     bandwidth = round(random.uniform(450, 890), 1)
     
-    # Hero metrics with custom styling
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
         st.markdown(f"""
             <div class='metric-card'>
-                <div style='font-size: 2.5rem; margin-bottom: 10px;'>📹</div>
+                <div style='font-size: 2.5rem; margin-bottom: 10px;'>Cameras</div>
                 <div style='font-size: 2.8rem; font-weight: 800; color: #6366f1;'>{active_cameras}/{total_cameras}</div>
                 <div style='color: #94a3b8; margin-top: 5px; font-size: 0.95rem;'>Active Cameras</div>
                 <div style='margin-top: 10px;'>
-                    <span class='status-badge status-online'>● ONLINE</span>
+                    <span class='status-badge status-online'>ONLINE</span>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -278,11 +252,11 @@ if page == "🏠 Command Center":
         alert_color = "#ef4444" if alerts > 5 else "#f59e0b"
         st.markdown(f"""
             <div class='metric-card'>
-                <div style='font-size: 2.5rem; margin-bottom: 10px;'>🚨</div>
+                <div style='font-size: 2.5rem; margin-bottom: 10px;'>Alerts</div>
                 <div style='font-size: 2.8rem; font-weight: 800; color: {alert_color};'>{alerts}</div>
                 <div style='color: #94a3b8; margin-top: 5px; font-size: 0.95rem;'>Active Alerts</div>
                 <div style='margin-top: 10px;'>
-                    <span class='status-badge status-{"alert" if alerts > 5 else "warning"}'>⚠ {"CRITICAL" if alerts > 5 else "MODERATE"}</span>
+                    <span class='status-badge status-{"alert" if alerts > 5 else "warning"}'>{"CRITICAL" if alerts > 5 else "MODERATE"}</span>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -290,11 +264,11 @@ if page == "🏠 Command Center":
     with col3:
         st.markdown(f"""
             <div class='metric-card'>
-                <div style='font-size: 2.5rem; margin-bottom: 10px;'>⚡</div>
+                <div style='font-size: 2.5rem; margin-bottom: 10px;'>Uptime</div>
                 <div style='font-size: 2.8rem; font-weight: 800; color: #10b981;'>{uptime}%</div>
                 <div style='color: #94a3b8; margin-top: 5px; font-size: 0.95rem;'>System Uptime</div>
                 <div style='margin-top: 10px;'>
-                    <span class='status-badge status-online'>● STABLE</span>
+                    <span class='status-badge status-online'>STABLE</span>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -302,24 +276,22 @@ if page == "🏠 Command Center":
     with col4:
         st.markdown(f"""
             <div class='metric-card'>
-                <div style='font-size: 2.5rem; margin-bottom: 10px;'>🌐</div>
+                <div style='font-size: 2.5rem; margin-bottom: 10px;'>Bandwidth</div>
                 <div style='font-size: 2.8rem; font-weight: 800; color: #8b5cf6;'>{bandwidth}</div>
                 <div style='color: #94a3b8; margin-top: 5px; font-size: 0.95rem;'>Bandwidth (Mbps)</div>
                 <div style='margin-top: 10px;'>
-                    <span class='status-badge status-online'>● OPTIMAL</span>
+                    <span class='status-badge status-online'>OPTIMAL</span>
                 </div>
             </div>
         """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Real-time monitoring charts
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.markdown("### 📈 Network Activity Stream")
+        st.markdown("### Network Activity Stream")
         
-        # Generate time series data
         time_points = pd.date_range(end=datetime.now(), periods=30, freq='1min')
         camera_data = [random.randint(20, 35) for _ in range(30)]
         bandwidth_data = [random.randint(400, 900) for _ in range(30)]
@@ -354,7 +326,7 @@ if page == "🏠 Command Center":
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        st.markdown("### 🎯 Alert Distribution")
+        st.markdown("### Alert Distribution")
         
         alert_types = ['Motion', 'Tampering', 'Connection', 'Quality', 'Other']
         alert_counts = [random.randint(0, 5) for _ in range(5)]
@@ -382,8 +354,7 @@ if page == "🏠 Command Center":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Live alerts feed
-    st.markdown("### 🔴 Live Alert Feed")
+    st.markdown("### Live Alert Feed")
     
     col1, col2 = st.columns([2, 1])
     
@@ -398,12 +369,11 @@ if page == "🏠 Command Center":
         
         for severity, message, time_ago in alert_messages[:4]:
             alert_class = "alert-critical" if severity == "CRITICAL" else "alert-warning"
-            icon = "🔴" if severity == "CRITICAL" else "⚠️" if severity == "WARNING" else "ℹ️"
             st.markdown(f"""
                 <div class='alert-box {alert_class}'>
                     <div style='display: flex; justify-content: space-between; align-items: center;'>
                         <div>
-                            <span style='font-weight: 700;'>{icon} {severity}</span> • {message}
+                            <span style='font-weight: 700;'>{severity}</span> • {message}
                         </div>
                         <div style='opacity: 0.7; font-size: 0.85rem;'>{time_ago}</div>
                     </div>
@@ -411,29 +381,26 @@ if page == "🏠 Command Center":
             """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown("### 🎛️ Quick Actions")
+        st.markdown("### Quick Actions")
         
-        if st.button("🔄 Refresh All Streams", use_container_width=True):
+        if st.button("Refresh All Streams", use_container_width=True):
             st.success("Refreshing all camera streams...")
         
-        if st.button("🚨 Acknowledge Alerts", use_container_width=True):
+        if st.button("Acknowledge Alerts", use_container_width=True):
             st.info("Alerts acknowledged")
         
-        if st.button("📊 Generate Report", use_container_width=True):
+        if st.button("Generate Report", use_container_width=True):
             st.success("Generating system report...")
         
-        if st.button("🔧 System Diagnostics", use_container_width=True):
+        if st.button("System Diagnostics", use_container_width=True):
             st.info("Running diagnostics...")
 
-# =============================
-# 🧠 NEURAL HEALTH
-# =============================
-elif page == "🧠 Neural Health":
-    st.markdown('<h1 class="gradient-text">🧠 SYSTEM NEURAL HEALTH</h1>', unsafe_allow_html=True)
+# System Health
+elif page == "System Health":
+    st.markdown('<h1 class="gradient-text">SYSTEM HEALTH</h1>', unsafe_allow_html=True)
     
     health = get_health()
     
-    # System status overview
     col1, col2, col3 = st.columns(3)
     
     with col1:
@@ -441,7 +408,6 @@ elif page == "🧠 Neural Health":
         color = "#10b981" if status == "OPTIMAL" else "#ef4444"
         st.markdown(f"""
             <div class='neon-box' style='border-color: {color}; text-align: center;'>
-                <div style='font-size: 3rem; margin-bottom: 10px;'>{"✅" if status == "OPTIMAL" else "⚠️"}</div>
                 <div style='font-size: 1.8rem; font-weight: 800; color: {color};'>{status}</div>
                 <div style='color: #94a3b8; margin-top: 5px;'>Backend Status</div>
             </div>
@@ -452,7 +418,6 @@ elif page == "🧠 Neural Health":
         cpu_color = "#10b981" if cpu_usage < 60 else "#f59e0b" if cpu_usage < 80 else "#ef4444"
         st.markdown(f"""
             <div class='neon-box' style='border-color: {cpu_color}; text-align: center;'>
-                <div style='font-size: 3rem; margin-bottom: 10px;'>⚡</div>
                 <div style='font-size: 1.8rem; font-weight: 800; color: {cpu_color};'>{cpu_usage}%</div>
                 <div style='color: #94a3b8; margin-top: 5px;'>CPU Load</div>
             </div>
@@ -465,7 +430,6 @@ elif page == "🧠 Neural Health":
         mem_color = "#10b981" if mem_pct < 70 else "#f59e0b" if mem_pct < 85 else "#ef4444"
         st.markdown(f"""
             <div class='neon-box' style='border-color: {mem_color}; text-align: center;'>
-                <div style='font-size: 3rem; margin-bottom: 10px;'>💾</div>
                 <div style='font-size: 1.8rem; font-weight: 800; color: {mem_color};'>{mem_used}GB</div>
                 <div style='color: #94a3b8; margin-top: 5px;'>Memory Usage / {mem_total}GB</div>
             </div>
@@ -473,11 +437,10 @@ elif page == "🧠 Neural Health":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Resource monitoring
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 📊 CPU Performance")
+        st.markdown("### CPU Performance")
         
         time_points = list(range(60))
         cpu_history = [random.randint(30, 80) for _ in range(60)]
@@ -507,7 +470,7 @@ elif page == "🧠 Neural Health":
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        st.markdown("### 💿 Memory Utilization")
+        st.markdown("### Memory Utilization")
         
         mem_history = [round(random.uniform(2.0, 6.5), 1) for _ in range(60)]
         
@@ -539,36 +502,32 @@ elif page == "🧠 Neural Health":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Network statistics
     col1, col2, col3, col4 = st.columns(4)
     
     metrics_data = [
-        ("🌐", "Network I/O", f"{random.randint(450, 950)} Mbps", "#6366f1"),
-        ("📡", "Latency", f"{random.randint(15, 45)} ms", "#8b5cf6"),
-        ("🔄", "Uptime", f"{random.randint(168, 720)}h {random.randint(10, 59)}m", "#10b981"),
-        ("💾", "Disk I/O", f"{random.randint(120, 450)} MB/s", "#ec4899"),
+        ("Network I/O", f"{random.randint(450, 950)} Mbps", "#6366f1"),
+        ("Latency", f"{random.randint(15, 45)} ms", "#8b5cf6"),
+        ("Uptime", f"{random.randint(168, 720)}h {random.randint(10, 59)}m", "#10b981"),
+        ("Disk I/O", f"{random.randint(120, 450)} MB/s", "#ec4899"),
     ]
     
-    for col, (icon, label, value, color) in zip([col1, col2, col3, col4], metrics_data):
+    for col, (label, value, color) in zip([col1, col2, col3, col4], metrics_data):
         with col:
             st.markdown(f"""
                 <div style='background: rgba(99, 102, 241, 0.05); padding: 20px; border-radius: 15px; border: 1px solid {color}; text-align: center;'>
-                    <div style='font-size: 2.5rem;'>{icon}</div>
                     <div style='font-size: 1.5rem; font-weight: 700; color: {color}; margin: 10px 0;'>{value}</div>
                     <div style='color: #94a3b8; font-size: 0.9rem;'>{label}</div>
                 </div>
             """, unsafe_allow_html=True)
 
-# =============================
-# 📡 LIVE FEED
-# =============================
-elif page == "📡 Live Feed":
-    st.markdown('<h1 class="gradient-text">📡 LIVE SYSTEM FEED</h1>', unsafe_allow_html=True)
+# Live Feed
+elif page == "Live Feed":
+    st.markdown('<h1 class="gradient-text">LIVE SYSTEM FEED</h1>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.markdown("### 📜 Real-Time Event Log")
+        st.markdown("### Real-Time Event Log")
         
         log_entries = [
             ("INFO", "System initialized successfully", "just now", "#6366f1"),
@@ -597,7 +556,7 @@ elif page == "📡 Live Feed":
             """, unsafe_allow_html=True)
     
     with col2:
-        st.markdown("### 📊 Event Statistics")
+        st.markdown("### Event Statistics")
         
         event_counts = {
             'INFO': random.randint(120, 200),
@@ -630,7 +589,7 @@ elif page == "📡 Live Feed":
         
         st.plotly_chart(fig, use_container_width=True)
         
-        st.markdown("### 🔥 Activity Heatmap")
+        st.markdown("### Activity Heatmap")
         st.markdown(f"""
             <div style='background: rgba(99, 102, 241, 0.1); padding: 15px; border-radius: 10px; text-align: center;'>
                 <div style='color: #e0e7ff; font-size: 1.2rem; font-weight: 600; margin-bottom: 10px;'>Last Hour</div>
@@ -639,20 +598,17 @@ elif page == "📡 Live Feed":
             </div>
         """, unsafe_allow_html=True)
 
-# =============================
-# 📊 DEEP ANALYTICS
-# =============================
-elif page == "📊 Deep Analytics":
-    st.markdown('<h1 class="gradient-text">📊 DEEP ANALYTICS</h1>', unsafe_allow_html=True)
+# Analytics
+elif page == "Analytics":
+    st.markdown('<h1 class="gradient-text">ANALYTICS</h1>', unsafe_allow_html=True)
     st.caption("Advanced performance metrics and predictive insights")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Camera performance metrics
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 🎥 Camera Performance Matrix")
+        st.markdown("### Camera Performance Matrix")
         
         cameras = [f"CAM-{i:02d}" for i in range(1, 11)]
         fps_data = [random.randint(18, 30) for _ in range(10)]
@@ -690,7 +646,7 @@ elif page == "📊 Deep Analytics":
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        st.markdown("### ⚡ Network Latency Analysis")
+        st.markdown("### Network Latency Analysis")
         
         latency_data = [random.randint(25, 150) for _ in range(10)]
         
@@ -723,11 +679,10 @@ elif page == "📊 Deep Analytics":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Advanced analytics
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### 📈 24-Hour Trend Analysis")
+        st.markdown("### 24-Hour Trend Analysis")
         
         hours = list(range(24))
         activity = [random.randint(10, 100) for _ in range(24)]
@@ -761,7 +716,7 @@ elif page == "📊 Deep Analytics":
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
-        st.markdown("### 🎯 Detection Accuracy Metrics")
+        st.markdown("### Detection Accuracy Metrics")
         
         detection_types = ['Motion', 'Face', 'Vehicle', 'Object', 'Crowd']
         accuracy = [random.randint(85, 99) for _ in range(5)]
@@ -797,40 +752,35 @@ elif page == "📊 Deep Analytics":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Performance scores
-    st.markdown("### 🏆 System Performance Scores")
+    st.markdown("### System Performance Scores")
     
     col1, col2, col3, col4, col5 = st.columns(5)
     
     scores = [
-        ("🎯", "Accuracy", random.randint(92, 99), "#10b981"),
-        ("⚡", "Speed", random.randint(88, 97), "#6366f1"),
-        ("🛡️", "Reliability", random.randint(95, 99), "#8b5cf6"),
-        ("🔍", "Detection", random.randint(90, 98), "#ec4899"),
-        ("📡", "Connectivity", random.randint(93, 99), "#f59e0b")
+        ("Accuracy", random.randint(92, 99), "#10b981"),
+        ("Speed", random.randint(88, 97), "#6366f1"),
+        ("Reliability", random.randint(95, 99), "#8b5cf6"),
+        ("Detection", random.randint(90, 98), "#ec4899"),
+        ("Connectivity", random.randint(93, 99), "#f59e0b")
     ]
     
-    for col, (icon, label, score, color) in zip([col1, col2, col3, col4, col5], scores):
+    for col, (label, score, color) in zip([col1, col2, col3, col4, col5], scores):
         with col:
             st.markdown(f"""
                 <div style='background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); 
                             padding: 25px; border-radius: 15px; text-align: center; border: 2px solid {color};'>
-                    <div style='font-size: 3rem; margin-bottom: 10px;'>{icon}</div>
                     <div style='font-size: 2.5rem; font-weight: 800; color: {color};'>{score}%</div>
                     <div style='color: #94a3b8; margin-top: 5px; font-size: 0.9rem;'>{label}</div>
                 </div>
             """, unsafe_allow_html=True)
 
-# =============================
-# 🌐 GLOBAL MAP
-# =============================
-elif page == "🌐 Global Map":
-    st.markdown('<h1 class="gradient-text">🌐 GLOBAL DEVICE MAP</h1>', unsafe_allow_html=True)
+# Global Map
+elif page == "Global Map":
+    st.markdown('<h1 class="gradient-text">GLOBAL DEVICE MAP</h1>', unsafe_allow_html=True)
     st.caption("Real-time geospatial visualization of all connected devices")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Generate sample data for demo (always show something)
     sample_locations = [
         (26.8467, 80.9462, "CAM-HQ-01", "Headquarters"),
         (26.8500, 80.9500, "CAM-SEC-02", "Security Gate"),
@@ -846,10 +796,8 @@ elif page == "🌐 Global Map":
         (23.0225, 72.5714, "CAM-AH-01", "Ahmedabad Center"),
     ]
     
-    # Always use sample data for demo
     data_list = []
     for lat, lon, device_id, location in sample_locations:
-        # Add some random variation
         lat_var = lat + random.uniform(-0.01, 0.01)
         lon_var = lon + random.uniform(-0.01, 0.01)
         status = random.choice(["online", "online", "online", "online", "warning"])
@@ -863,7 +811,6 @@ elif page == "🌐 Global Map":
     
     data = pd.DataFrame(data_list)
     
-    # Status summary
     col1, col2, col3, col4 = st.columns(4)
     
     online_count = len(data[data['status'] == 'online'])
@@ -874,7 +821,7 @@ elif page == "🌐 Global Map":
         st.markdown(f"""
             <div style='background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #10b981; text-align: center;'>
                 <div style='font-size: 2.5rem; color: #10b981; font-weight: 800;'>{online_count}</div>
-                <div style='color: #94a3b8; margin-top: 5px;'>● Online Devices</div>
+                <div style='color: #94a3b8; margin-top: 5px;'>Online Devices</div>
             </div>
         """, unsafe_allow_html=True)
     
@@ -882,7 +829,7 @@ elif page == "🌐 Global Map":
         st.markdown(f"""
             <div style='background: rgba(245, 158, 11, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #f59e0b; text-align: center;'>
                 <div style='font-size: 2.5rem; color: #f59e0b; font-weight: 800;'>{warning_count}</div>
-                <div style='color: #94a3b8; margin-top: 5px;'>⚠ Warning Status</div>
+                <div style='color: #94a3b8; margin-top: 5px;'>Warning Status</div>
             </div>
         """, unsafe_allow_html=True)
     
@@ -890,7 +837,7 @@ elif page == "🌐 Global Map":
         st.markdown(f"""
             <div style='background: rgba(99, 102, 241, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #6366f1; text-align: center;'>
                 <div style='font-size: 2.5rem; color: #6366f1; font-weight: 800;'>{total_devices}</div>
-                <div style='color: #94a3b8; margin-top: 5px;'>📍 Total Locations</div>
+                <div style='color: #94a3b8; margin-top: 5px;'>Total Locations</div>
             </div>
         """, unsafe_allow_html=True)
     
@@ -899,14 +846,12 @@ elif page == "🌐 Global Map":
         st.markdown(f"""
             <div style='background: rgba(139, 92, 246, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #8b5cf6; text-align: center;'>
                 <div style='font-size: 2.5rem; color: #8b5cf6; font-weight: 800;'>{uptime_pct}%</div>
-                <div style='color: #94a3b8; margin-top: 5px;'>⚡ Network Uptime</div>
+                <div style='color: #94a3b8; margin-top: 5px;'>Network Uptime</div>
             </div>
         """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Interactive map - Now data is always populated
-    # Create color coding based on status
     def get_color(status):
         if status == 'online':
             return [16, 185, 129, 200]
@@ -925,7 +870,6 @@ elif page == "🌐 Global Map":
         bearing=0
     )
     
-    # Scatterplot layer for devices
     scatter_layer = pdk.Layer(
         "ScatterplotLayer",
         data=data,
@@ -936,7 +880,6 @@ elif page == "🌐 Global Map":
         auto_highlight=True,
     )
     
-    # Column layer for 3D effect
     column_layer = pdk.Layer(
         "ColumnLayer",
         data=data,
@@ -969,8 +912,7 @@ elif page == "🌐 Global Map":
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Device list
-    st.markdown("### 📋 Device Registry")
+    st.markdown("### Device Registry")
     
     display_data = data[['device', 'location', 'status', 'lat', 'lon']].copy()
     display_data.columns = ['Device ID', 'Location', 'Status', 'Latitude', 'Longitude']
@@ -980,11 +922,9 @@ elif page == "🌐 Global Map":
         hide_index=True
     )
 
-# =============================
-# ⚡ SYSTEM CONTROL
-# =============================
-elif page == "⚡ System Control":
-    st.markdown('<h1 class="gradient-text">⚡ SYSTEM CONTROL CENTER</h1>', unsafe_allow_html=True)
+# System Control
+elif page == "System Control":
+    st.markdown('<h1 class="gradient-text">SYSTEM CONTROL CENTER</h1>', unsafe_allow_html=True)
     st.caption("Advanced system configuration and management")
     
     st.markdown("<br>", unsafe_allow_html=True)
@@ -992,9 +932,8 @@ elif page == "⚡ System Control":
     col1, col2 = st.columns([2, 1])
     
     with col1:
-        st.markdown("### 🎛️ Camera Management")
+        st.markdown("### Camera Management")
         
-        # Camera control interface
         cameras_list = [f"Camera {i:02d}" for i in range(1, 16)]
         
         col_a, col_b, col_c = st.columns(3)
@@ -1008,41 +947,40 @@ elif page == "⚡ System Control":
         with col_c:
             st.markdown("<br>", unsafe_allow_html=True)
             if st.button("Execute", use_container_width=True, type="primary"):
-                st.success(f"✅ {action} executed on {selected_camera}")
+                st.success(f"{action} executed on {selected_camera}")
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Bulk operations
-        st.markdown("### 🔄 Bulk Operations")
+        st.markdown("### Bulk Operations")
         
         col_a, col_b = st.columns(2)
         
         with col_a:
-            if st.button("🔄 Restart All Cameras", use_container_width=True):
+            if st.button("Restart All Cameras", use_container_width=True):
                 with st.spinner("Restarting all cameras..."):
                     time.sleep(1)
                 st.success("All cameras restarted successfully!")
         
         with col_b:
-            if st.button("🧹 Clear All Alerts", use_container_width=True):
+            if st.button("Clear All Alerts", use_container_width=True):
                 st.success("All alerts cleared!")
         
         col_a, col_b = st.columns(2)
         
         with col_a:
-            if st.button("📊 Export System Report", use_container_width=True):
+            if st.button("Export System Report", use_container_width=True):
                 st.info("Generating comprehensive system report...")
         
         with col_b:
-            if st.button("🔧 Run Diagnostics", use_container_width=True):
+            if st.button("Run Diagnostics", use_container_width=True):
                 with st.spinner("Running system diagnostics..."):
                     time.sleep(1.5)
                 st.success("Diagnostics completed. All systems nominal.")
     
     with col2:
-        st.markdown("### ⚙️ System Settings")
+        st.markdown("### System Settings")
         
-        st.markdown("**🎥 Video Quality**")
+        st.markdown("**Video Quality**")
         quality = st.select_slider(
             "Resolution",
             options=["480p", "720p", "1080p", "4K"],
@@ -1050,14 +988,14 @@ elif page == "⚡ System Control":
             label_visibility="collapsed"
         )
         
-        st.markdown("**🔔 Alert Threshold**")
+        st.markdown("**Alert Threshold**")
         alert_sensitivity = st.slider(
             "Sensitivity",
             0, 100, 75,
             label_visibility="collapsed"
         )
         
-        st.markdown("**💾 Storage Management**")
+        st.markdown("**Storage Management**")
         retention = st.number_input(
             "Retention Days",
             min_value=1,
@@ -1068,20 +1006,19 @@ elif page == "⚡ System Control":
         
         st.markdown("<br>", unsafe_allow_html=True)
         
-        if st.button("💾 Save Settings", use_container_width=True, type="primary"):
+        if st.button("Save Settings", use_container_width=True, type="primary"):
             st.success("Settings saved successfully!")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # System maintenance
-    st.markdown("### 🛠️ System Maintenance")
+    st.markdown("### System Maintenance")
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("""
             <div style='background: rgba(99, 102, 241, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #6366f1;'>
-                <h4 style='color: #6366f1; margin-top: 0;'>🗄️ Database</h4>
+                <h4 style='color: #6366f1; margin-top: 0;'>Database</h4>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Last backup: 2 hours ago</p>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Size: 2.4 GB</p>
             </div>
@@ -1093,7 +1030,7 @@ elif page == "⚡ System Control":
     with col2:
         st.markdown("""
             <div style='background: rgba(139, 92, 246, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #8b5cf6;'>
-                <h4 style='color: #8b5cf6; margin-top: 0;'>🔄 Updates</h4>
+                <h4 style='color: #8b5cf6; margin-top: 0;'>Updates</h4>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Current: v2.4.1</p>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Latest: v2.4.2</p>
             </div>
@@ -1105,7 +1042,7 @@ elif page == "⚡ System Control":
     with col3:
         st.markdown("""
             <div style='background: rgba(236, 72, 153, 0.1); padding: 20px; border-radius: 12px; border: 2px solid #ec4899;'>
-                <h4 style='color: #ec4899; margin-top: 0;'>🧹 Cleanup</h4>
+                <h4 style='color: #ec4899; margin-top: 0;'>Cleanup</h4>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Temp files: 1.2 GB</p>
                 <p style='color: #94a3b8; font-size: 0.9rem;'>Old logs: 850 MB</p>
             </div>
@@ -1114,12 +1051,10 @@ elif page == "⚡ System Control":
         if st.button("Clean Up", use_container_width=True):
             st.success("Cleanup completed!")
 
-# =============================
-# ⏳ AUTO REFRESH (Footer info)
-# =============================
+# Footer
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown(f"""
     <div style='text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 20px;'>
-        🔄 Auto-refresh: Every {refresh_rate}s | Last updated: {datetime.now().strftime('%H:%M:%S')}
+        Auto-refresh: Every {refresh_rate}s | Last updated: {datetime.now().strftime('%H:%M:%S')}
     </div>
 """, unsafe_allow_html=True)

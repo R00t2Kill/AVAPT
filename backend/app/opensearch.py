@@ -22,19 +22,19 @@ class OpenSearchHelper:
                 
                 # Test connection
                 if self.client.ping():
-                    logger.info(f"✅ Connected to OpenSearch at {self.url}")
+                    logger.info(f"Connected to OpenSearch at {self.url}")
                     return
                 else:
-                    logger.warning(f"❌ OpenSearch ping failed on attempt {attempt + 1}")
+                    logger.warning(f"OpenSearch ping failed on attempt {attempt + 1}")
                     
             except exceptions.ConnectionError as e:
-                logger.warning(f"🔌 Connection attempt {attempt + 1} failed: {e}")
+                logger.warning(f"Connection attempt {attempt + 1} failed: {e}")
             
             if attempt < max_retries - 1:
-                logger.info(f"🔄 Retrying in {delay} seconds...")
+                logger.info(f"Retrying in {delay} seconds...")
                 time.sleep(delay)
         
-        logger.error(f"💥 Failed to connect to OpenSearch after {max_retries} attempts")
+        logger.error(f"Failed to connect to OpenSearch after {max_retries} attempts")
         self.client = None
 
     def create_index_mappings(self):
@@ -76,12 +76,12 @@ class OpenSearchHelper:
                     }
                 }
                 self.client.indices.create(index=self.index, body=mapping)
-                logger.info(f"📁 Created index: {self.index}")
+                logger.info(f"Created index: {self.index}")
             else:
-                logger.info(f"📁 Index already exists: {self.index}")
+                logger.info(f"Index already exists: {self.index}")
             return True
         except Exception as e:
-            logger.error(f"💥 Error creating index: {e}")
+            logger.error(f"Error creating index: {e}")
             return False
 
     def index_device(self, device_data: Dict[str, Any]) -> bool:
@@ -102,10 +102,10 @@ class OpenSearchHelper:
             )
             success = response.get('result') in ['created', 'updated']
             if success:
-                logger.debug(f"✅ Indexed device: {device_data.get('ip', 'unknown')}")
+                logger.debug(f"Indexed device: {device_data.get('ip', 'unknown')}")
             return success
         except Exception as e:
-            logger.error(f"💥 Error indexing device: {e}")
+            logger.error(f"Error indexing device: {e}")
             return False
 
     def search_devices(self, query: Optional[str] = None, size: int = 100) -> List[Dict[str, Any]]:
@@ -149,14 +149,14 @@ class OpenSearchHelper:
                 device['_id'] = hit['_id']  # Include OpenSearch ID
                 devices.append(device)
                 
-            logger.debug(f"🔍 Found {len(devices)} devices")
+            logger.debug(f"Found {len(devices)} devices")
             return devices
             
         except exceptions.NotFoundError:
             logger.info("Index not found, returning empty results")
             return []
         except Exception as e:
-            logger.error(f"💥 Error searching devices: {e}")
+            logger.error(f"Error searching devices: {e}")
             return []
 
     def get_all_devices(self, size: int = 100) -> List[Dict[str, Any]]:
@@ -191,13 +191,13 @@ class OpenSearchHelper:
                 device['_id'] = hit['_id']
                 devices.append(device)
                 
-            logger.debug(f"🛡️ Found {len(devices)} vulnerable devices")
+            logger.debug(f"Found {len(devices)} vulnerable devices")
             return devices
             
         except exceptions.NotFoundError:
             return []
         except Exception as e:
-            logger.error(f"💥 Error getting vulnerable devices: {e}")
+            logger.error(f"Error getting vulnerable devices: {e}")
             return []
 
     def bulk_index_devices(self, devices: List[Dict[str, Any]]) -> bool:
@@ -215,14 +215,14 @@ class OpenSearchHelper:
             response = self.client.bulk(body=operations, refresh=True)
             
             if response.get('errors'):
-                logger.error(f"💥 Bulk indexing errors: {response}")
+                logger.error(f"Bulk indexing errors: {response}")
                 return False
                 
-            logger.info(f"✅ Bulk indexed {len(devices)} devices")
+            logger.info(f"Bulk indexed {len(devices)} devices")
             return True
             
         except Exception as e:
-            logger.error(f"💥 Error in bulk indexing: {e}")
+            logger.error(f"Error in bulk indexing: {e}")
             return False
 
     def delete_index(self) -> bool:
@@ -234,9 +234,9 @@ class OpenSearchHelper:
         try:
             if self.client.indices.exists(index=self.index):
                 self.client.indices.delete(index=self.index)
-                logger.info(f"🗑️ Deleted index: {self.index}")
+                logger.info(f"Deleted index: {self.index}")
                 return True
             return False
         except Exception as e:
-            logger.error(f"💥 Error deleting index: {e}")
+            logger.error(f"Error deleting index: {e}")
             return False

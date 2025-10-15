@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Lab-only fingerprinting script.
-This script WILL REFUSE to run unless --lab flag is provided.
-It uses conservative nmap flags and only targets ports 80,443,554.
-"""
+
 
 import argparse
 import subprocess

@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""
-Safe Shodan ingestion script.
-Modes:
- - --sample : load bundled sample devices into backend via API (safe)
- - --query "<shodan query>": perform read-only Shodan search and push metadata to backend (requires SHODAN_API_KEY env var)
-"""
+
 import argparse
 import os
 import requests

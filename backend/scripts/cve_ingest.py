@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Ingest NVD JSON (local file) into opensearch cve_map index.
-Simple script: reads local JSON file that follows NVD feed format and indexes product strings -> CVE.
-"""
+
 import argparse
 import json
 import os
